@@ -23,6 +23,12 @@ def _main():
     parser.add_argument('-d', '--datadir', help='Path to directory with numbers files', default=os.path.join(basedir,'data'), type=str)
     args = parser.parse_args()
 
+    if API_ID is None:
+        API_ID = input('Input your API_ID: ')
+
+    if API_HASH is None:
+        API_HASH = input('Input your API_HASH: ')
+
     datadir = args.datadir
     
     with Telegram_clock(datadir=datadir, con_name='telegram clock', api_id=API_ID, api_hash=API_HASH, proxy=(socks.SOCKS5, '75.119.200.128', 2719)) as conn:

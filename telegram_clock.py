@@ -1,5 +1,5 @@
 from telegram_clock.telegram_clock import Telegram_clock
-from config import *
+from config import API_ID, API_HASH
 import argparse
 import os
 import socks

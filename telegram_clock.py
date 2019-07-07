@@ -17,7 +17,7 @@ logger = logging.getLogger('telegram_clock')
 logger.setLevel(logging.INFO)
 logger.addHandler(file_handler)
 
-def _main():
+def _main(API_ID, API_HASH):
     basedir = os.path.abspath(os.path.dirname(__file__))
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--datadir', help='Path to directory with numbers files', default=os.path.join(basedir,'data'), type=str)
@@ -38,4 +38,4 @@ def _main():
 
 if __name__ == '__main__':
     logger.info('Start project')
-    _main()
+    _main(API_ID, API_HASH)

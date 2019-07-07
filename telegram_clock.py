@@ -2,6 +2,20 @@ from telegram_clock.telegram_clock import Telegram_clock
 from config import *
 import argparse
 import os
+import socks
+import logging
+from logging.handlers import RotatingFileHandler
+
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+
+file_handler = RotatingFileHandler('logs/logfile.log', maxBytes=10240, backupCount=10)
+file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+file_handler.setLevel(logging.INFO)
+
+logger = logging.getLogger('telegram_clock')
+logger.setLevel(logging.INFO)
+logger.addHandler(file_handler)
 
 def _main():
     basedir = os.path.abspath(os.path.dirname(__file__))
@@ -10,20 +24,12 @@ def _main():
     args = parser.parse_args()
 
     datadir = args.datadir
-
-    print(API_ID, API_HASH)
-    print(type(API_ID), type(API_HASH))
-
-    with Telegram_clock(datadir, 'telegram_clock', API_ID, API_HASH) as conn:
-        pass
-        """
+    
+    with Telegram_clock(datadir=datadir, con_name='telegram clock', api_id=API_ID, api_hash=API_HASH, proxy=(socks.SOCKS5, '75.119.200.128', 2719)) as conn:
         while True:
-            try:
-                conn.run()
-            except:
-                break
-        """
+            conn.run()
+           
 
 if __name__ == '__main__':
-    print('Start project')
+    logger.info('Start project')
     _main()

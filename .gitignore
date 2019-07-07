@@ -105,4 +105,4 @@ venv.bak/
 
 # VSCODE files
 .vscode
-*.session
+*.session*

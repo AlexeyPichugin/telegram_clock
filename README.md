@@ -8,6 +8,6 @@ Python script for update telegram's avatar to current time clock
 4. Start application, one times again put your mobile phone and SMS-code.
 5. Enjoy!
  
-Thank for idea and link to library <b>mumtozvalijonov</b>
+Thank for idea and link to library <b>mumtozvalijonov</b> 
+
 Link to original paper: https://habr.com/ru/post/457078/
- 

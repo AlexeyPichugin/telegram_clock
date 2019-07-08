@@ -2,6 +2,8 @@ import os
 import telethon
 import numpy as np
 import time
+time.tzset()
+
 import tempfile
 import logging
 

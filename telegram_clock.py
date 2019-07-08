@@ -9,7 +9,7 @@ from logging.handlers import RotatingFileHandler
 if not os.path.exists('logs'):
     os.mkdir('logs')
 
-file_handler = RotatingFileHandler('logs/logfile.log', maxBytes=10240, backupCount=10)
+file_handler = RotatingFileHandler('logs/logfile.log', maxBytes=10*1024*1024, backupCount=10)
 file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
 file_handler.setLevel(logging.INFO)
 
@@ -30,10 +30,15 @@ def _main(API_ID, API_HASH):
         API_HASH = input('Input your API_HASH: ')
 
     datadir = args.datadir
-    
-    with Telegram_clock(datadir=datadir, con_name='telegram clock', api_id=API_ID, api_hash=API_HASH, proxy=(socks.SOCKS5, '75.119.200.128', 2719)) as conn:
-        while True:
-            conn.run()
+    try:
+        with Telegram_clock(datadir=datadir, con_name='telegram clock', api_id=API_ID, api_hash=API_HASH, proxy=(socks.SOCKS5, '75.119.200.128', 2719)) as conn:
+            while True:
+                try:
+                    conn.run()
+                except:
+                    logger.error('Error update photo')
+    except:
+        logger.error('Error connect to telegram')
            
 
 if __name__ == '__main__':

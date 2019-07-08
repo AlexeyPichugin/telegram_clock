@@ -7,7 +7,7 @@ import logging
 
 from telethon import TelegramClient, sync
 from telethon.tl.functions.photos import DeletePhotosRequest, UploadProfilePhotoRequest
-from skimage.io import imread, imsave 
+from matplotlib.pyplot import imread, imsave
 
 logger = logging.getLogger('telegram_clock.app')
 
@@ -41,7 +41,6 @@ class Telegram_clock():
                 for file in os.listdir(self.image_dir):
                     os.remove(os.path.join(self.image_dir, file))
         except:
-            # Не обращаем внимания на ошибки, поскольк все происходи во временной папке
             pass 
         self.connection.disconnect()
         

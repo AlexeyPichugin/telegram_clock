@@ -7,7 +7,7 @@ time.tzset()
 import tempfile
 import logging
 
-from telethon import TelegramClient, sync
+from telethon import TelegramClient, sync, connection
 from telethon.tl.functions.photos import DeletePhotosRequest, UploadProfilePhotoRequest
 from matplotlib.pyplot import imread, imsave
 
@@ -15,10 +15,11 @@ logger = logging.getLogger('telegram_clock.app')
 
 class Telegram_clock():
    
-    def __init__(self, datadir, con_name, api_id, api_hash, proxy=None):
+    def __init__(self, datadir, con_name, api_id, api_hash, connection=None, proxy=None):
         self.__API_ID = int(api_id)
         self.__API_HASH = api_hash
         self.__proxy = proxy
+        self.__connection = connection
         self.__datadir = datadir
         self.__con_name = con_name
         self.connection = None
@@ -32,7 +33,7 @@ class Telegram_clock():
             os.mkdir(os.path.join(tempfile.gettempdir(), 'telegram_images'))
         self.image_dir = os.path.join(tempfile.gettempdir(), 'telegram_images')
         logger.info('Create connection')
-        self.connection = TelegramClient(self.__con_name, self.__API_ID, self.__API_HASH, proxy=self.__proxy).start()
+        self.connection = TelegramClient(self.__con_name, self.__API_ID, self.__API_HASH, proxy=self.__proxy, connection=self.__connection).start()
 
         logger.info('Connection successfully create')
         return self

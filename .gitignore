@@ -107,6 +107,5 @@ venv.bak/
 .vscode
 *.session*
 logs/*
-logs/logfile.log.1
 logfile*
 ..env*

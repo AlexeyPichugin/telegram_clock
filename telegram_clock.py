@@ -71,7 +71,7 @@ def _main(API_ID, API_HASH):
                     logger.error('Error update photo')
     except:
         logger.error('Error connect to telegram')
-           
+    
 
 if __name__ == '__main__':
     logger.info('Start project')

@@ -1,0 +1,20 @@
+language: python
+
+install:
+  - pip install poetry
+  - poetry install
+
+jobs:
+  include:
+    - stage: black
+      script: poetry run black --check $(pwd)
+      python: "3.7"
+    - stage: mypy
+      script: poetry run mypy $(pwd)/telegram_clock
+      python: "3.7"
+    - stage: bandit
+      script: poetry run bandit -r $(pwd)/telegram_clock
+      python: "3.7"
+    - stage: flake8
+      script: poetry run flake8 --max-line-length 120 .
+      python: "3.7"

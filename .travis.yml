@@ -1,20 +1,39 @@
 language: python
 
+env:
+  - IMAGE_NAME=apichugin/telegram_clock
+
+services:
+  - docker
+
 install:
   - pip install poetry
   - poetry install
 
+stages:
+  - code_style
+  - name: docker
+    if: tag IS present
+
 jobs:
   include:
-    - stage: black
+    - stage: code_style
       script: poetry run black --check $(pwd)
       python: "3.7"
-    - stage: mypy
-      script: poetry run mypy $(pwd)/telegram_clock
+    - script: poetry run mypy $(pwd)/telegram_clock
       python: "3.7"
-    - stage: bandit
-      script: poetry run bandit -r $(pwd)/telegram_clock
+    - script: poetry run bandit -r $(pwd)/telegram_clock
       python: "3.7"
-    - stage: flake8
-      script: poetry run flake8 --max-line-length 120 .
+    - script: poetry run flake8 --max-line-length 120 .
       python: "3.7"
+    
+    - stage: docker
+      python: "3.7"
+      script: 
+        - SHORT_TAG=${TRAVIS_BRANCH}
+        - echo building image -\> ${IMAGE_NAME}:${SHORT_TAG}
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build --no-cache -t ${IMAGE_NAME}:${SHORT_TAG} .
+        - docker tag ${IMAGE_NAME}:${SHORT_TAG} ${IMAGE_NAME}:${SHORT_TAG}
+        - docker push ${IMAGE_NAME}:${SHORT_TAG}
+        - docker push ${IMAGE_NAME}:latest

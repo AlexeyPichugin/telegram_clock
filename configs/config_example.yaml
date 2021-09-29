@@ -1,0 +1,13 @@
+data_dir: "./data"
+use_ipv6: true
+timeout: 10
+proxy:
+  type: MTProto
+  host: proxy.host
+  port: 443
+  secret: ddd41d8cd98f00b204e9800998ecf8427e
+logger:
+  log_level: INFO
+  log_to_file: true
+  log_file_name: telegram_clock.log
+  log_file_max_size: 20

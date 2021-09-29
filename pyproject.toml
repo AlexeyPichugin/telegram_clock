@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "telegram_clock"
+version = "0.1.0"
+description = "Realtime clock on a telegrams avatar"
+authors = ["AlexeyPichugin <a.o.pichugin@outlook.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.11"
+Telethon = "^1.23.0"
+loguru = "^0.5.3"
+python-dotenv = "^0.18.0"
+PyYAML = "^5.4.1"
+PySocks = "^1.7.1"
+Pillow = "^8.3.2"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+flake8 = "^3.9.2"
+mypy = "^0.910"
+bandit = "^1.7.0"
+types-PyYAML = "^5.4.10"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py37', 'py38', 'py39']

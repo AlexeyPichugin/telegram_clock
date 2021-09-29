@@ -1,8 +1,5 @@
 language: python
 
-env:
-  - IMAGE_NAME=apichugin/telegram_clock
-
 services:
   - docker
 
@@ -30,6 +27,7 @@ jobs:
     - stage: docker
       python: "3.7"
       script: 
+        - IMAGE_NAME=apichugin/telegram_clock
         - SHORT_TAG=${TRAVIS_BRANCH}
         - echo building image -\> ${IMAGE_NAME}:${SHORT_TAG}
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

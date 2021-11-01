@@ -124,10 +124,11 @@ class TelegramClockClient:
         """
         Update telegram avatar. Function removed all old avatars and set new
         """
-        self.logger.info("Delete old photos")
-        self.client(DeletePhotosRequest(self.client.get_profile_photos("me")))
+        photos = self.client.get_profile_photos("me")
         self.logger.info("Create new photo")
         self.client(UploadProfilePhotoRequest(self.client.upload_file(image_path)))
+        self.logger.info("Delete old photos")
+        self.client(DeletePhotosRequest(photos))
 
     def init_session(self):
         """Check if sessin is exists"""

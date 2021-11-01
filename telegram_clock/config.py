@@ -46,6 +46,7 @@ class LoggerConfig:
         logger_format = "{time} [{level}] {module}:{function}:{line} {message}"
         logger.add(sys.stdout, level=self.log_level, format=logger_format)
         if self.log_to_file:
+            os.makedirs(os.path.dirname(self.log_file_name), exist_ok=True)
             logger.add(
                 self.log_file_name, level=self.log_level, format=logger_format, rotation=f"{self.log_file_max_size} MB"
             )

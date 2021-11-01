@@ -19,7 +19,7 @@ Docker-hub page: https://hub.docker.com/r/apichugin/telegram_clock
 ```
 $ docker run -it -e API_ID=<API_ID> -e API_HASH=<API_HASH> -v $(pwd)/configs/config.yaml:/srv/app/configs/config.yaml apichugin/telegram_clock:latest --init 
 1ApWapzMBu0JLeT5nTNXlcdabsi_48nYHaYSSKH5cgr8a4Cc5...48nYHaYSSKH5cgr8a4Cc5KcRYPUmI=
-```docker pull 
+```
 
 2. Run application.
 You can transfer session data in 3 different ways:

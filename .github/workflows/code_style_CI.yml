@@ -1,0 +1,35 @@
+name: Code Style
+on: [push, pull_request]
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Inastall python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: ${{ matrix.python-version }}
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.1.10
+      - run: poetry config experimental.new-installer false
+      - name: Install dependencies
+        run: poetry install
+      - name: Black code style
+        run: poetry run black --check $(pwd)
+        shell: bash
+      - name: Flake8 code style
+        run: poetry run flake8 --max-line-length 120 .
+        shell: bash
+      - name: mypy code style
+        run: poetry run mypy $(pwd)/telegram_clock
+        shell: bash
+      - name: Bandit code style
+        run: poetry run bandit -r $(pwd)/telegram_clock
+        shell: bash
